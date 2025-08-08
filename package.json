@@ -1,0 +1,83 @@
+{
+  "name": "@fabwaseem/hiway-player",
+  "version": "1.0.0",
+  "description": "Eluvio Player",
+  "main": "dist/elv-player-js.es.js",
+  "license": "MIT",
+  "homepage": "https://github.com/fabwaseem/hiway-player",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "bump-version": "npm --git-tag-version --no-commit-hooks version patch",
+    "serve": "vite --host 0.0.0.0 --port 8089",
+    "serve-https": "SERVE_HTTPS=true vite --host 0.0.0.0 --port 8089",
+    "build": "npm run build-icons ; vite build",
+    "build-analyze": "vite-bundle-visualizer",
+    "build-docs": "./node_modules/.bin/jsdoc --configure ./.jsdoc.json --readme README.md",
+    "preview": "vite preview",
+    "build-icons": "node lib/ui/BuildIcons.cjs",
+    "lint": "npm run fix-scss ; npm run fix-js",
+    "lint-show": "npm run lint-scss ; npm run lint-js",
+    "lint-js": "eslint \"lib/**/*.js\"",
+    "lint-scss": "npx stylelint \"lib/**/*.css\" \"lib/**/*.module.scss\"",
+    "fix-js": "npm run lint-js -- --fix",
+    "fix-scss": "npx stylelint --fix \"lib/**/*.css\" \"lib/**/*.module.scss\""
+  },
+  "pre-commit": {
+    "run": [
+      "build"
+    ]
+  },
+  "files": [
+    "/dist",
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "package-lock.json"
+  ],
+  "dependencies": {
+    "@eluvio/elv-client-js": "^4.0.92",
+    "@fabwaseem/hiway-player": "file:",
+    "dashjs": "~4.7.0",
+    "focus-visible": "^5.2.0",
+    "hls.js": "~1.5.12",
+    "mux-embed": "^4.30.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "url-join": "^4.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.16",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "jsdoc": "^4.0.0",
+    "sass": "^1.77.6",
+    "stylelint": "^16.2.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.1.0",
+    "taffydb": "^2.7.3",
+    "vite": "^5.0.11",
+    "vite-bundle-visualizer": "^1.0.0",
+    "vite-plugin-svgr": "^4.2.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabwaseem/hiway-player.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/fabwaseem/hiway-player/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
