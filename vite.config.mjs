@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from "vite";
+import { defineConfig, splitVendorChunkPlugin, loadEnv } from "vite";
 import path from "path";
 import autoprefixer from "autoprefixer";
 import react from "@vitejs/plugin-react-swc";
@@ -13,11 +13,12 @@ if(process.env.SERVE_HTTPS) {
   plugins.push(basicSsl());
 }
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
   return {
     plugins,
     server: {
-      port: 8089,
+      port: Number(env.PORT) || 8089,
       host: true
     },
     build: {
