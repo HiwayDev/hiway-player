@@ -17,6 +17,7 @@ import {
   SettingsMenu,
   VolumeControls,
 } from "./Components.jsx";
+import SharePopup from "./SharePopup.jsx";
 
 export const IconButton = ({ icon, className = "", ...props }) => {
   return (
@@ -296,6 +297,7 @@ const WebControls = ({
   const [companyLogo, setCompanyLogo] = useState(undefined);
   const [showMarkIn, setShowMarkIn] = useState(undefined);
   const [showMarkOut, setShowMarkOut] = useState(undefined);
+  const [shareOpen, setShareOpen] = useState(false);
 
   useEffect(() => {
     const { companyLogo } = player.playerOptions.previewMode
@@ -337,7 +339,7 @@ const WebControls = ({
   const collectionInfo = player.controls.GetCollectionInfo();
 
   // Title autohide is not dependent on controls settings
-  const showUI = recentlyInteracted || !playbackStarted || menuVisible;
+  const showUI = recentlyInteracted || !playbackStarted || menuVisible || shareOpen;
   const hideControls =
     !showUI &&
     player.playerOptions.controls === EluvioPlayerParameters.controls.AUTO_HIDE;
@@ -528,6 +530,16 @@ const WebControls = ({
                   onClick={() => player.controls.ToggleFullscreen()}
                   className={ControlStyles["icon-buttons"]}
                 />
+                <IconButton
+                  aria-label="Share"
+                  data-share-trigger="true"
+                  icon={Icons.ShareIcon}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShareOpen((open) => !open);
+                  }}
+                  className={ControlStyles["icon-buttons"]}
+                />
                 <div className={ControlStyles["greenfish-logo"]}>
                   <img src={GreenfishLogo} alt="Hiway logo" />
                 </div>
@@ -562,6 +574,13 @@ const WebControls = ({
             <img src={companyLogo} alt="Company logo" />
           </div>
         )}
+      {shareOpen && (
+        <SharePopup
+          player={player}
+          shareConfig={player.playerOptions.shareConfig}
+          onClose={() => setShareOpen(false)}
+        />
+      )}
     </div>
   );
 };
