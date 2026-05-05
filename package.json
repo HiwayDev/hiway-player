@@ -8,8 +8,9 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "bump-version": "npm --git-tag-version --no-commit-hooks version patch",
-    "serve": "vite --host 0.0.0.0 --port 8089",
-    "serve-https": "SERVE_HTTPS=true vite --host 0.0.0.0 --port 8089",
+    "dev": "vite --host 0.0.0.0",
+    "serve": "vite --host 0.0.0.0",
+    "serve-https": "SERVE_HTTPS=true vite --host 0.0.0.0",
     "build": "npm run build-icons ; vite build",
     "build-analyze": "vite-bundle-visualizer",
     "build-docs": "./node_modules/.bin/jsdoc --configure ./.jsdoc.json --readme README.md",
